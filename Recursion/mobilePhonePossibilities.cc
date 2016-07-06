@@ -1,29 +1,26 @@
-#include<iostream>
-#include<cstring>
+#include <iostream>
+#include <cstring>
 using namespace std;
+const char hashTable[10][5] = {"0", "1", "abc", "def", "ghi", "jkl",
+                               "mno", "pqrs", "tuv", "wxyz"};
 
-const char hashTable[10][5]={"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-
-void printPossibilities(int number[], int currDigit, char *result, int len){
-    if(len == currDigit){
-        cout<<result<<"\n";
-        result;
-    }
+void  printWords(int number[], int curr_digit, char output[], int n){
     int i;
-    for(i=0;i<strlen(hashTable[number[currDigit]]);++i){
-        result[currDigit] = hashTable[number[currDigit]][i];
-        printPossibilities(number, currDigit + 1, result, len);
+    if (curr_digit == n){
+        cout<<"\n"<<output;
+        return ;
+    }
+    for (i=0; i<strlen(hashTable[number[curr_digit]]); i++){
+        output[curr_digit] = hashTable[number[curr_digit]][i];
+        printWords(number, curr_digit+1, output, n);
     }
 }
 
-int main(){
-    int len;
-    cin>>len;
-    int arr[len];
-    for(int i=0;i<len;i++)
-        cin>>arr[i];
-    char result[len+1];
-    result[len]='\0';
-    printPossibilities(arr, 0, result, len);
+int main(void){
+    int number[] = {0, 2, 3, 4};
+    int n = sizeof(number)/sizeof(number[0]);
+    char result[n+1];
+    result[n] ='\0';
+    printWords(number, 0, result, n);
     return 0;
 }
